@@ -1,0 +1,2 @@
+"# APP"  initgit add README.mdgit commit -m "first commit"git branch -M maingit remote add origin https://github.com/Juancollareda/APP.gitgit push -u origin main
+"# APP"  initgit add README.mdgit commit -m "first commit"git branch -M maingit remote add origin https://github.com/Juancollareda/APP.gitgit push -u origin main
