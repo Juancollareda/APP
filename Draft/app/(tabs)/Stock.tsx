@@ -9,7 +9,7 @@ Usando lo que vimos de estilos, props, useState, <Text>, <View> y <Pressable>
 import { Image, StyleSheet, Platform, Pressable } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-const obj_lista = [''];
+const obj_lista = ['objeto 1',"objeto 2"];
 const Lista = () => {
   function push(obj:string){
     obj_lista.push(obj);
@@ -37,9 +37,10 @@ export default function HomeScreen() {
     return (
       <>
         <ThemedView style={styles.titleContainer}>
-                <ThemedText type="title">Stock</ThemedText>
+                <ThemedText type="title">Index</ThemedText>
                
             </ThemedView>
+        <text><Lista></Lista></text>
       </>
           )}
 
@@ -59,4 +60,8 @@ const styles = StyleSheet.create({
       bottom: 0,
       left: 0,
       position: 'absolute',
-    }})
+    },
+      text:{
+    }
+  
+  })
