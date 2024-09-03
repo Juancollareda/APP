@@ -6,62 +6,60 @@ Usando lo que vimos de estilos, props, useState, <Text>, <View> y <Pressable>
 -El texto dentro de la tarjeta tiene que estar centrado en ambos ejes
 -El codigo tiene que estar disponible en Github */
 
-import { Image, StyleSheet, Platform, Pressable } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-const obj_lista = ['objeto 1',"objeto 2"];
-const Lista = () => {
-  function push(obj:string){
-    obj_lista.push(obj);
-  }
-  function remove(obj:string){
-    if (obj in obj_lista){
-      var pos = obj_lista.indexOf(obj);
-      obj_lista.slice(pos,1);
-    }
-    else{
-      console.log("no esta el elemento",obj," en la lista")
-    }
-  }
-  return (
-    <div>
-        <ul>
-            {obj_lista.map((objeto, index) => (
-                <li key={index}>{objeto}</li>
-            ))}
-        </ul>
-    </div>
-);
-}
-export default function HomeScreen() {
-    return (
-      <>
-        <ThemedView style={styles.titleContainer}>
-                <ThemedText type="title">Index</ThemedText>
-               
-            </ThemedView>
-        <text><Lista></Lista></text>
-      </>
-          )}
+import React, {useState} from 'react';
+import { Text, StyleSheet, View, FlatList, Pressable } from 'react-native';
 
-const styles = StyleSheet.create({
-    titleContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 8,
-    },
-    stepContainer: {
-      gap: 8,
-      marginBottom: 8,
-    },
-    reactLogo: {
-      height: 178,
-      width: 290,
-      bottom: 0,
-      left: 0,
-      position: 'absolute',
-    },
-      text:{
-    }
+const Tarjeta = ({texto}:{texto:String})=> {
   
-  })
+  const [isPressed, setIsPressed] = useState(false);
+  const handlePress = () => {
+    setIsPressed(!isPressed);
+  }
+  return(
+    <Pressable onPress={handlePress}>
+       <View style={[styles.card, isPressed && styles.cardPressed]}>
+        <Text style={[styles.cardText, isPressed && styles.textPressed]}>{texto}</Text>
+      </View>
+    </Pressable>
+  );
+};
+const Lista = () => {
+  const data = [
+    { id: '1', text: 'Tarjeta 1' },
+    { id: '2', text: 'Tarjeta 2' },
+    { id: '3', text: 'Tarjeta 3' },
+  ];
+
+  return (
+    <FlatList
+      data={data}
+      keyExtractor={item => item.id}
+      renderItem={({ item }) => <Tarjeta texto={item.text} />}
+      contentContainerStyle={styles.container}
+    />
+  );
+};
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+  },
+  card: {
+    backgroundColor: '#f0f0f0',
+    padding: 20,
+    marginVertical: 10,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cardPressed: {
+    backgroundColor: '#4caf50',
+  },
+  cardText: {
+    color: '#000',
+    fontSize: 18,
+  },
+  textPressed: {
+    color: '#fff',
+  },
+});
+export default Lista;
